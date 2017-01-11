@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Getting Started With Hexo | vi ji.sh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionFinally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for Hexo, which would be an ideal blogging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting Started With Hexo">
+<meta property="og:url" content="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/index.html">
+<meta property="og:site_name" content="vi ji.sh">
+<meta property="og:description" content="IntroductionFinally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for Hexo, which would be an ideal blogging">
+<meta property="og:updated_time" content="2017-01-11T13:59:50.833Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Getting Started With Hexo">
+<meta name="twitter:description" content="IntroductionFinally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for Hexo, which would be an ideal blogging">
+  
+    <link rel="alternate" href="/atom.xml" title="vi ji.sh" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vi ji.sh</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.jishnu.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Getting-Started-With-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/31/Getting-Started-With-Hexo/" class="article-date">
+  <time datetime="2016-12-30T15:13:24.000Z" itemprop="datePublished">2016-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Getting Started With Hexo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Finally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for <a href="https://hexo.io" target="_blank" rel="external">Hexo</a>, which would be an ideal blogging platform. So naturally the first blog entry is how to setup Hexo and deploy in the server.</p>
+<h2 id="Getting-Started-With-Hexo"><a href="#Getting-Started-With-Hexo" class="headerlink" title="Getting Started With Hexo"></a>Getting Started With Hexo</h2><p>You would need nodejs and npm installed in your machine.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g</div><div class="line">hexo init jishnu.me</div><div class="line">cd blog</div><div class="line">npm install</div><div class="line">hexo server</div></pre></td></tr></table></figure>
+<p>Where <code>jishnu.me</code> is the folder the code will be generated. You can see the blog in port 4000 on your localhost.</p>
+<h2 id="Creating-First-Post"><a href="#Creating-First-Post" class="headerlink" title="Creating First Post"></a>Creating First Post</h2><p>All the posts go to the folder <code>blog/source/_posts/</code> and are of type <code>markdown (.md)</code></p>
+<p><code>hexo-cli</code> provides command line tool to create new posts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new post &quot;Getting Started With Hexo&quot;</div></pre></td></tr></table></figure>
+<p>this will create a file called <code>Getting-Started-With-Hexo.md</code> under the <code>blog/source/_posts/</code> folder.</p>
+<p>Open the folder <code>jishnu.me</code> in your editor. You can start writing your blog.</p>
+<h2 id="Creating-github-page"><a href="#Creating-github-page" class="headerlink" title="Creating github page"></a>Creating github page</h2><p>You will need to create a public repository with <code>yourGithubUserid.github.io</code> repository for you to have github page. I am going to use this page as my blog.</p>
+<p><code>https://github.com/neolivz/neolivz.github.io</code> would be my github project name for my github page since my github userid is <code>neolivz</code>.</p>
+<h2 id="Adding-Github-Page-as-a-Submodule-to-your-project"><a href="#Adding-Github-Page-as-a-Submodule-to-your-project" class="headerlink" title="Adding Github Page as a Submodule to your project"></a>Adding Github Page as a Submodule to your project</h2><p>Add your github page as submodule to your project. This will help to generate the static pages and directly check into the<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule add git@github.com:neolivz/neolivz.github.io.git</div></pre></td></tr></table></figure></p>
+<h2 id="Configuring-your-hexo-project"><a href="#Configuring-your-hexo-project" class="headerlink" title="Configuring your hexo project"></a>Configuring your hexo project</h2><p>In the file <code>_config.yml</code> makes the necessary edits, title subtitle, url etc.</p>
+<p>Apart from that change the default <code>public_dir</code> to your newly added submodule. So in my case it would be</p>
+<h2 id="Creating-Static-Site"><a href="#Creating-Static-Site" class="headerlink" title="Creating Static Site"></a>Creating Static Site</h2><p>Next step is creating a static site that we can host</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure>
+<p>This will generate a static folder which you can host anywhere. Since the generated files are in submodule of static page of your github it will be coming into your static page. Checkin everything to see if its working.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="cixt0bw800000csgisfp9t6m2" class="article-share-link">Delen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Labels</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archieven</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recente berichten</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/31/Getting-Started-With-Hexo/">Getting Started With Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Jishnu Viswanath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
