@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.jishnu.me"></form>
@@ -94,6 +94,7 @@
 <p>Open the folder <code>jishnu.me</code> in your editor. You can start writing your blog.</p>
 <h2 id="Creating-github-page"><a href="#Creating-github-page" class="headerlink" title="Creating github page"></a>Creating github page</h2><p>You will need to create a public repository with <code>yourGithubUserid.github.io</code> repository for you to have github page. I am going to use this page as my blog.</p>
 <p><code>https://github.com/neolivz/neolivz.github.io</code> would be my github project name for my github page since my github userid is <code>neolivz</code>.</p>
+<p>PS:<br>Every time you make a build you need to commit from submodule and followed by committing in the parent module.</p>
 <h2 id="Adding-Github-Page-as-a-Submodule-to-your-project"><a href="#Adding-Github-Page-as-a-Submodule-to-your-project" class="headerlink" title="Adding Github Page as a Submodule to your project"></a>Adding Github Page as a Submodule to your project</h2><p>Add your github page as submodule to your project. This will help to generate the static pages and directly check into the<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule add git@github.com:neolivz/neolivz.github.io.git</div></pre></td></tr></table></figure></p>
 <h2 id="Configuring-your-hexo-project"><a href="#Configuring-your-hexo-project" class="headerlink" title="Configuring your hexo project"></a>Configuring your hexo project</h2><p>In the file <code>_config.yml</code> makes the necessary edits, title subtitle, url etc.</p>
 <p>Apart from that change the default <code>public_dir</code> to your newly added submodule. So in my case it would be</p>
@@ -104,7 +105,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="cixt0bw800000csgisfp9t6m2" class="article-share-link">Partager</a>
+      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="ciyc4bj9r0000vi3g5ix1s5s2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
@@ -126,7 +127,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
     </div>
@@ -136,7 +137,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a>
     </div>
@@ -155,7 +156,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -176,7 +177,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 Jishnu Viswanath<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
