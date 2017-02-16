@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>vi ji.sh</title>
+  <title>Base Server Configuration | vi ji.sh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="vi ji.sh">
-<meta property="og:url" content="http://blog.jishnu.me/index.html">
+  <meta name="description" content="I decided to scrap everything in my VPS and decided to start my web server from scratch. Here are the base stuff which I do.PS: This is a Ubuntu machine, other distros will have a different command fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Base Server Configuration">
+<meta property="og:url" content="http://blog.jishnu.me/2017/02/08/Base-Server-Configuration/index.html">
 <meta property="og:site_name" content="vi ji.sh">
+<meta property="og:description" content="I decided to scrap everything in my VPS and decided to start my web server from scratch. Here are the base stuff which I do.PS: This is a Ubuntu machine, other distros will have a different command fo">
+<meta property="og:updated_time" content="2017-02-09T16:12:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vi ji.sh">
+<meta name="twitter:title" content="Base Server Configuration">
+<meta name="twitter:description" content="I decided to scrap everything in my VPS and decided to start my web server from scratch. Here are the base stuff which I do.PS: This is a Ubuntu machine, other distros will have a different command fo">
   
     <link rel="alternate" href="/atom.xml" title="vi ji.sh" type="application/atom+xml">
   
@@ -59,9 +63,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Base-Server-Configuration" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Base-Server-Configuration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/02/08/Base-Server-Configuration/" class="article-date">
   <time datetime="2017-02-08T03:37:07.000Z" itemprop="datePublished">2017-02-08</time>
@@ -74,8 +76,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/08/Base-Server-Configuration/">Base Server Configuration</a>
+    <h1 class="article-title" itemprop="name">
+      Base Server Configuration
     </h1>
   
 
@@ -145,66 +147,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Getting-Started-With-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/31/Getting-Started-With-Hexo/" class="article-date">
-  <time datetime="2016-12-30T15:13:24.000Z" itemprop="datePublished">2016-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/31/Getting-Started-With-Hexo/">Getting Started With Hexo</a>
-    </h1>
+    <a href="/2016/12/31/Getting-Started-With-Hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Getting Started With Hexo</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Finally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for <a href="https://hexo.io" target="_blank" rel="external">Hexo</a>, which would be an ideal blogging platform. So naturally the first blog entry is how to setup Hexo and deploy in the server.</p>
-<h2 id="Getting-Started-With-Hexo"><a href="#Getting-Started-With-Hexo" class="headerlink" title="Getting Started With Hexo"></a>Getting Started With Hexo</h2><p>You would need nodejs and npm installed in your machine.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g</div><div class="line">hexo init jishnu.me</div><div class="line">cd blog</div><div class="line">npm install</div><div class="line">hexo server</div></pre></td></tr></table></figure>
-<p>Where <code>jishnu.me</code> is the folder the code will be generated. You can see the blog in port 4000 on your localhost.</p>
-<h2 id="Creating-First-Post"><a href="#Creating-First-Post" class="headerlink" title="Creating First Post"></a>Creating First Post</h2><p>All the posts go to the folder <code>blog/source/_posts/</code> and are of type <code>markdown (.md)</code></p>
-<p><code>hexo-cli</code> provides command line tool to create new posts</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new post &quot;Getting Started With Hexo&quot;</div></pre></td></tr></table></figure>
-<p>this will create a file called <code>Getting-Started-With-Hexo.md</code> under the <code>blog/source/_posts/</code> folder.</p>
-<p>Open the folder <code>jishnu.me</code> in your editor. You can start writing your blog.</p>
-<h2 id="Creating-github-page"><a href="#Creating-github-page" class="headerlink" title="Creating github page"></a>Creating github page</h2><p>You will need to create a public repository with <code>yourGithubUserid.github.io</code> repository for you to have github page. I am going to use this page as my blog.</p>
-<p><code>https://github.com/neolivz/neolivz.github.io</code> would be my github project name for my github page since my github userid is <code>neolivz</code>.</p>
-<p>PS:<br>Every time you make a build you need to commit from submodule and followed by committing in the parent module.</p>
-<h2 id="Adding-Github-Page-as-a-Submodule-to-your-project"><a href="#Adding-Github-Page-as-a-Submodule-to-your-project" class="headerlink" title="Adding Github Page as a Submodule to your project"></a>Adding Github Page as a Submodule to your project</h2><p>Add your github page as submodule to your project. This will help to generate the static pages and directly check into the<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule add git@github.com:neolivz/neolivz.github.io.git</div></pre></td></tr></table></figure></p>
-<h2 id="Configuring-your-hexo-project"><a href="#Configuring-your-hexo-project" class="headerlink" title="Configuring your hexo project"></a>Configuring your hexo project</h2><p>In the file <code>_config.yml</code> makes the necessary edits, title subtitle, url etc.</p>
-<p>Apart from that change the default <code>public_dir</code> to your newly added submodule. So in my case it would be</p>
-<h2 id="Creating-Static-Site"><a href="#Creating-Static-Site" class="headerlink" title="Creating Static Site"></a>Creating Static Site</h2><p>Next step is creating a static site that we can host</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure>
-<p>This will generate a static folder which you can host anywhere. Since the generated files are in submodule of static page of your github it will be coming into your static page. Checkin everything to see if its working.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="ciz81apha0000pj3g2en7k1t8" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
