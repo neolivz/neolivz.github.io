@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.jishnu.me"></form>
@@ -60,6 +60,69 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Nginx-Wordpress" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/06/Nginx-Wordpress/" class="article-date">
+  <time datetime="2017-03-06T06:27:21.000Z" itemprop="datePublished">2017-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/06/Nginx-Wordpress/">Nginx+Wordpress</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>I had a scenario where I had to setup WordPress running on an Nginx server.<br>So steps are as follows.</p>
+<h2 id="Setting-up-Nginx-to-use-PHP-processors"><a href="#Setting-up-Nginx-to-use-PHP-processors" class="headerlink" title="Setting up Nginx to use PHP processors"></a>Setting up Nginx to use PHP processors</h2><p>Install PHP processors<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php-fpm php-mysql</div><div class="line">sudo vi /etc/php/7.0/fpm/php.ini</div></pre></td></tr></table></figure></p>
+<p>Make the following change in the file<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cgi.fix_pathinfo=0</div></pre></td></tr></table></figure></p>
+<p>We need to give permission to the correct user, i.e. <code>nginx</code> in this case<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/php/7.0/fpm/pool.d/www.conf</div></pre></td></tr></table></figure></p>
+<p>Now change the following line accordingly<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">listen.owner = nginx</div><div class="line">listen.group = nginx</div><div class="line">listen.mode = 0660</div></pre></td></tr></table></figure></p>
+<p>Restart PHP processors<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl restart php7.0-fpm</div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service php7.0-fpm restart</div></pre></td></tr></table></figure></p>
+<p>Now allow Nginx to use PHP, I am going to configure jishnu.me to use PHP.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/nginx/conf.d/jishnu.me.conf</div></pre></td></tr></table></figure></p>
+<p>Now add the following, note I changed the root directory of my location as it does not make any sense to serve from html folder<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">    root   /var/www/bkop.in;</div><div class="line">    index  index.php index.html index.htm;</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ~ \.php$ &#123;</div><div class="line">    # Zero-day exploit defense.</div><div class="line">    # http://forum.nginx.org/read.php?2,88845,page=3</div><div class="line">    # Won&apos;t work properly (404 error) if the file is not stored on this server, which is entirely possible with php-fpm/php-fcgi.</div><div class="line">    # Comment the &apos;try_files&apos; line out if you set up php-fpm/php-fcgi on another machine.  And then cross your fingers that you won&apos;t get hacked.</div><div class="line">    try_files $uri =404;</div><div class="line"></div><div class="line">    fastcgi_split_path_info ^(.+\.php)(/.+)$;</div><div class="line">    include fastcgi_params;</div><div class="line">    fastcgi_index index.php;</div><div class="line">    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">    #fastcgi_intercept_errors on;</div><div class="line">    root /var/www/bkop.in;</div><div class="line">    fastcgi_pass unix:/run/php/php7.0-fpm.sock;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">location ~ /\.ht &#123;</div><div class="line">    deny all;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Now thats run, check if configuration is correct or not<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo nginx -t</div></pre></td></tr></table></figure></p>
+<p>If the out put says everything is fine go ahead, else go and check the configuration, check folder permission etc.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo service nginx reload</div><div class="line">sudo service nginx restart</div></pre></td></tr></table></figure>
+<p>Now lets check if the PHP is working fine in Nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /var/www/jishnu.me/html/info.php</div></pre></td></tr></table></figure></p>
+<p>Add the following line</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
+<p>Now go to <code>http://jishnu.me/html/info.php</code> and see if the page comes up</p>
+<h2 id="Setting-up-mysql"><a href="#Setting-up-mysql" class="headerlink" title="Setting up mysql"></a>Setting up mysql</h2><p>Install mysql (<em>if you don’t have that already</em>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mysql-server</div><div class="line">sudo mysql_secure_installation</div></pre></td></tr></table></figure></p>
+<p>Enter your password and setup the what is correct answers for your case.</p>
+<p>Once that is done lets setup WordPress db<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p</div></pre></td></tr></table></figure></p>
+<p>Run the following commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">create database WordPress;</div><div class="line"></div><div class="line">create user wpuser@localhost IDENTIFIED BY &apos;your-password&apos;;</div><div class="line"></div><div class="line">grant all privileges on WordPress.* to wpuser@localhost identified by &apos;your-password&apos;;</div><div class="line"></div><div class="line">flush privileges;</div><div class="line"></div><div class="line">exit;</div></pre></td></tr></table></figure></p>
+<h2 id="Wordpress-configuration"><a href="#Wordpress-configuration" class="headerlink" title="Wordpress configuration"></a>Wordpress configuration</h2><p>Once that is done, let’s configure WordPress<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd</div><div class="line">wget https://wordpress.org/latest.tar.gz</div><div class="line">tar xvf latest.tar.gz</div><div class="line">sudo mv /* /var/www/jishnu.me/</div><div class="line">cd /var/www/jishnu.me</div><div class="line">sudo cp wp-config-sample.php wp-config.php</div><div class="line">sudo vi wp-config.php</div></pre></td></tr></table></figure></p>
+<p>Edit the following<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/** The name of the database for WordPress */</div><div class="line">define(&apos;DB_NAME&apos;, &apos;wordpress&apos;);</div><div class="line"></div><div class="line">/** MySQL database username */</div><div class="line">define(&apos;DB_USER&apos;, &apos;wpuser&apos;);</div><div class="line"></div><div class="line">/** MySQL database password */</div><div class="line">define(&apos;DB_PASSWORD&apos;, &apos;your-password&apos;);</div></pre></td></tr></table></figure></p>
+<p>Once that is done change persmission of the files<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown nginx:nginx /var/www/jishnu.me -R</div></pre></td></tr></table></figure></p>
+<p>Whola!!! That’s it. You can use WordPress in your VPS via Nginx.</p>
+<h1 id="Credits"><a href="#Credits" class="headerlink" title="Credits"></a>Credits</h1><p>I had got stuck with multiple times with multiple occasions before finally stumbling upon this <a href="https://www.linuxbabe.com/linux-server/install-wordpress-ubuntu-16-04-nginx-mariadb-php7" target="_blank" rel="external">tutorial</a>. So do check them out if you are stuck.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jishnu.me/2017/03/06/Nginx-Wordpress/" data-id="cizxrhi320003rt3gjk62nkkj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WordPress/">WordPress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Base-Server-Configuration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -90,10 +153,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update</div><div class="line">apt-get upgrade</div></pre></td></tr></table></figure>
 <p>PS: If you are getting warning to update kernel ignore it.</p>
 <h2 id="Create-a-new-user"><a href="#Create-a-new-user" class="headerlink" title="Create a new user"></a>Create a new user</h2><p>Once that is done I create my user, neo; and create his home folders along with ssh folder to keep the authorized keys.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">useradd neo</div><div class="line">mkdir /home/neo</div><div class="line">mkdir /home/neo/.ssh</div><div class="line">chmod 700 /home/deploy/.ssh</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">useradd neo</div><div class="line">mkdir /home/neo</div><div class="line">mkdir /home/neo/.ssh</div><div class="line">chmod 700 /home/neo/.ssh</div></pre></td></tr></table></figure>
 <p>Once this is done, I set password for the new user and try to login as the user.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">passwd neo</div></pre></td></tr></table></figure>
-<p>Create a new terminal session and try to login. If you username is same for your local machine and remote machine you don’t have to pass in the username.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssh neo@jishnu.me</div><div class="line">or</div><div class="line">ssh jishnu.me</div></pre></td></tr></table></figure></p>
+<p>Create a new terminal session and try to login. If you username is same for your local machine and remote machine you don’t have to pass in the username.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh neo@jishnu.me</div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh jishnu.me</div></pre></td></tr></table></figure></p>
 <p>Enter the password, once it logins <code>exit</code>.</p>
 <h2 id="Password-less-authentication"><a href="#Password-less-authentication" class="headerlink" title="Password less authentication"></a>Password less authentication</h2><p>Now lets setup ssh login without password.</p>
 <p>Copy the content of your ssh keys from your local machine. If you don’t have one <a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/" target="_blank" rel="external">create one</a> in your local.</p>
@@ -111,7 +175,7 @@
 <p>It will ask for password, enter the password and it should get apt-get update rolling in.</p>
 <h2 id="Remove-root-and-password-logging-in"><a href="#Remove-root-and-password-logging-in" class="headerlink" title="Remove root and password logging in"></a>Remove root and password logging in</h2><p><em>Once you are done with this step, if you lose your ssh keys you won’t be able to login to your server. So backup keys first</em></p>
 <p>Now we will prevent root logging in and password logging in.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/ssh/sshd_config</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/ssh/sshd_config</div></pre></td></tr></table></figure>
 <p>Make the following changes<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PermitRootLogin no</div><div class="line">PasswordAuthentication no</div></pre></td></tr></table></figure></p>
 <p>Now restart the ssh service, and <code>exit</code> the session. You won’t be able to login using root or from a computer with key is not configured.</p>
 <h1 id="Installing-git"><a href="#Installing-git" class="headerlink" title="Installing git"></a>Installing git</h1><p>We need git not only for bring the code to the server but also for installing oh-my-zsh in next step</p>
@@ -119,7 +183,7 @@
 <p>I reuse my ssh keys from my local machine in the remote. If you want separate keys <a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/" target="_blank" rel="external">create one</a> again.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp github jishnu.me:~/.ssh</div></pre></td></tr></table></figure></p>
 <h1 id="Changing-The-Shell"><a href="#Changing-The-Shell" class="headerlink" title="Changing The Shell"></a>Changing The Shell</h1><p>I am a big fan zsh and <a href="http://ohmyz.sh/" target="_blank" rel="external">oh-my-zsh</a>.</p>
 <h2 id="zsh-shell"><a href="#zsh-shell" class="headerlink" title="zsh shell"></a>zsh shell</h2><p>First we install zsh and change default shell to zsh.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get insall zsh</div><div class="line">sudo usermod -s $(which zsh) neo</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install zsh</div><div class="line">sudo usermod -s $(which zsh) neo</div></pre></td></tr></table></figure>
 <h2 id="Installing-oh-my-zsh"><a href="#Installing-oh-my-zsh" class="headerlink" title="Installing oh-my-zsh"></a>Installing oh-my-zsh</h2><p>Once that is done install oh-my-zsh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh -c &quot;$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</div></pre></td></tr></table></figure></p>
 <h2 id="Additional-Plugins"><a href="#Additional-Plugins" class="headerlink" title="Additional Plugins"></a>Additional Plugins</h2><p>Once that is done install additional plugins for oh-my-zsh. By default git plugin is enabled but I add nodejs, npm and github plugins along with it. To enable plugins edit <code>zshrc</code> file in the root.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.zshrc</div></pre></td></tr></table></figure>
@@ -131,17 +195,28 @@
 <h2 id="Remove-apache-if-you-have-it-already-installed"><a href="#Remove-apache-if-you-have-it-already-installed" class="headerlink" title="Remove apache (if you have it already installed)"></a>Remove apache (if you have it already installed)</h2><p>My VPS ubuntu distro comes with apache pre installed. So we need to remove that first.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo service apache2 stop</div><div class="line">sudo apt-get purge apache2 apache2-utils apache2.2-bin apache2-common</div><div class="line">sudo apt-get autoremove</div></pre></td></tr></table></figure></p>
 <p>Now lets just do the cleanup<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">whereis apache2</div></pre></td></tr></table></figure></p>
 <p>Delete the resulting files/folders</p>
-<h2 id="Installing-nginx"><a href="#Installing-nginx" class="headerlink" title="Installing nginx"></a>Installing nginx</h2><p>Based on the <a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/" target="_blank" rel="external">guide</a><br>In summary, edit the apt-get source file list<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/apt/sources.list</div></pre></td></tr></table></figure></p>
+<h2 id="Installing-nginx"><a href="#Installing-nginx" class="headerlink" title="Installing nginx"></a>Installing nginx</h2><p>Based on the <a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/" target="_blank" rel="external">guide</a> install<br>In summary, edit the apt-get source file list<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/apt/sources.list</div></pre></td></tr></table></figure></p>
 <p>Add the lines<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">deb http://nginx.org/packages/ubuntu/ xenial nginx</div><div class="line">deb-src http://nginx.org/packages/ubuntu/ xenial nginx</div></pre></td></tr></table></figure></p>
-<p>Where <code>xenial</code> is the release version of your ubuntu, mine being 16.04<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
+<p>Where <code>xenial</code> is the release version of your ubuntu, mine being 16.04</p>
+<p>Further try one of the following</p>
+<h3 id="Option-1-Nginx-website-recommended-method"><a href="#Option-1-Nginx-website-recommended-method" class="headerlink" title="Option 1: Nginx website recommended method"></a>Option 1: Nginx website recommended method</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
 <p>This will generate an error like<br><code>W: GPG error: http://nginx.org/packages/ubuntu xenial InRelease: The following signatures couldn&#39;t be verified because the public key is not available: NO_PUBKEY $key</code><br>get the corresponding <code>$key</code> from the server<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install nginx</div><div class="line">sudo systemctl start nginx</div></pre></td></tr></table></figure></p>
+<h3 id="Option-2-Key-issue"><a href="#Option-2-Key-issue" class="headerlink" title="Option 2: Key issue"></a>Option 2: Key issue</h3><p>When second time I tried I had issue with opening key file, google trouble shooting gave me this option<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">wget https://nginx.org/keys/nginx_signing.key -O - | sudo apt-key add -</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install nginx</div><div class="line">sudo systemctl start nginx</div></pre></td></tr></table></figure></p>
+<h2 id="Multi-domain-Sub-domain-configuration"><a href="#Multi-domain-Sub-domain-configuration" class="headerlink" title="Multi domain / Sub domain configuration"></a>Multi domain / Sub domain configuration</h2><p>Go to nginx configuration directory<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /etc/nginx/conf.d/</div><div class="line">sudo cp default.conf jishnu.me.conf</div><div class="line">sudo cp default.code beta.jishnu.me.conf</div><div class="line">sudo mv default.conf default.conf.bak</div></pre></td></tr></table></figure></p>
+<p>Now edit each file <code>sudo vi jishnu.me.conf</code> change the entries for corresponding keys<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">server_name  jishnu.me www.jishnu.me;</div><div class="line">location / &#123;</div><div class="line">    root   /var/www/jishnu.me/html;</div><div class="line">    index  index.html index.htm;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Edit the similar changes for beta.jishnu.me</p>
+<p>Now create the folders <code>/var/www/jishnu.me/html</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo mkdir -p /var/www/jishnu.me/html</div><div class="line">sudo mkdir -p /var/www/beta.jishnu.me/html</div><div class="line">sudo touch /var/www/jishnu.me/html/live</div><div class="line">sudo touch /var/www/beta.jishnu.me/html/beta</div><div class="line">sudo service nginx reload</div><div class="line">sudo service nginx restart</div></pre></td></tr></table></figure></p>
+<p>now if you access <code>http://jishnu.me/live</code> or <code>http://beta.jishnu.me/beta</code> and will not get <code>404</code> or <code>403</code>.</p>
+<p>That’s basic setup I have when I start my VPS.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jishnu.me/2017/02/08/Base-Server-Configuration/" data-id="ciz81aphf0001pj3gk6u4vnbi" class="article-share-link">Partager</a>
+      <a data-url="http://blog.jishnu.me/2017/02/08/Base-Server-Configuration/" data-id="cizxrhi2t0000rt3gay7mdkhe" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oh-my-zsh/">oh-my-zsh</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vps/">vps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zsh/">zsh</a></li></ul>
+
     </footer>
   </div>
   
@@ -184,6 +259,7 @@
 <p><code>https://github.com/neolivz/neolivz.github.io</code> would be my github project name for my github page since my github userid is <code>neolivz</code>.</p>
 <p>PS:<br>Every time you make a build you need to commit from submodule and followed by committing in the parent module.</p>
 <h2 id="Adding-Github-Page-as-a-Submodule-to-your-project"><a href="#Adding-Github-Page-as-a-Submodule-to-your-project" class="headerlink" title="Adding Github Page as a Submodule to your project"></a>Adding Github Page as a Submodule to your project</h2><p>Add your github page as submodule to your project. This will help to generate the static pages and directly check into the<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule add git@github.com:neolivz/neolivz.github.io.git</div></pre></td></tr></table></figure></p>
+<p>###NOTE<br>If you are cloning a fresh checkout submodules won’t be already fetched. So you will have to update the submodule with<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git submodule init</div><div class="line">git submodule update</div></pre></td></tr></table></figure></p>
 <h2 id="Configuring-your-hexo-project"><a href="#Configuring-your-hexo-project" class="headerlink" title="Configuring your hexo project"></a>Configuring your hexo project</h2><p>In the file <code>_config.yml</code> makes the necessary edits, title subtitle, url etc.</p>
 <p>Apart from that change the default <code>public_dir</code> to your newly added submodule. So in my case it would be</p>
 <h2 id="Creating-Static-Site"><a href="#Creating-Static-Site" class="headerlink" title="Creating Static Site"></a>Creating Static Site</h2><p>Next step is creating a static site that we can host</p>
@@ -193,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="ciz81apha0000pj3g2en7k1t8" class="article-share-link">Partager</a>
+      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="cizxrhi2x0001rt3g3aqdmd1g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
@@ -215,9 +291,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WordPress/">WordPress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oh-my-zsh/">oh-my-zsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vps/">vps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/">zsh</a></li></ul>
     </div>
   </div>
 
@@ -225,9 +301,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a>
+      <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/WordPress/" style="font-size: 10px;">WordPress</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh-my-zsh</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vps/" style="font-size: 10px;">vps</a> <a href="/tags/zsh/" style="font-size: 10px;">zsh</a>
     </div>
   </div>
 
@@ -236,7 +312,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
     </div>
   </div>
 
@@ -244,9 +320,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/03/06/Nginx-Wordpress/">Nginx+Wordpress</a>
+          </li>
         
           <li>
             <a href="/2017/02/08/Base-Server-Configuration/">Base Server Configuration</a>
@@ -269,7 +349,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 Jishnu Viswanath<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
