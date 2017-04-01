@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Getting Started With Hexo | vi ji.sh</title>
+  <title>The Beauty Of The Yarn | vi ji.sh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IntroductionFinally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for Hexo, which would be an ideal blogging">
+  <meta name="description" content="HistoryAbout a 4 months back when I was coming back from my India trip, I wanted to make use of my time in flight by doing som RnD on React and Aurelia. I had two option either setup everthing before">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Getting Started With Hexo">
-<meta property="og:url" content="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/index.html">
+<meta property="og:title" content="The Beauty Of The Yarn">
+<meta property="og:url" content="http://blog.jishnu.me/2017/03/08/The-Beauty-Of-The-Yarn/index.html">
 <meta property="og:site_name" content="vi ji.sh">
-<meta property="og:description" content="IntroductionFinally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for Hexo, which would be an ideal blogging">
-<meta property="og:updated_time" content="2017-03-05T13:28:47.000Z">
+<meta property="og:description" content="HistoryAbout a 4 months back when I was coming back from my India trip, I wanted to make use of my time in flight by doing som RnD on React and Aurelia. I had two option either setup everthing before">
+<meta property="og:updated_time" content="2017-04-01T14:07:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Getting Started With Hexo">
-<meta name="twitter:description" content="IntroductionFinally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for Hexo, which would be an ideal blogging">
+<meta name="twitter:title" content="The Beauty Of The Yarn">
+<meta name="twitter:description" content="HistoryAbout a 4 months back when I was coming back from my India trip, I wanted to make use of my time in flight by doing som RnD on React and Aurelia. I had two option either setup everthing before">
   
     <link rel="alternate" href="/atom.xml" title="vi ji.sh" type="application/atom+xml">
   
@@ -63,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Getting-Started-With-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-The-Beauty-Of-The-Yarn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/12/31/Getting-Started-With-Hexo/" class="article-date">
-  <time datetime="2016-12-30T15:13:24.000Z" itemprop="datePublished">2016-12-31</time>
+    <a href="/2017/03/08/The-Beauty-Of-The-Yarn/" class="article-date">
+  <time datetime="2017-03-08T06:59:09.000Z" itemprop="datePublished">2017-03-08</time>
 </a>
     
   </div>
@@ -77,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Getting Started With Hexo
+      The Beauty Of The Yarn
     </h1>
   
 
@@ -85,33 +85,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Finally I decided to start with my own blog. So naturally the question came up was which one to use? After careful consideration I decided to go for <a href="https://hexo.io" target="_blank" rel="external">Hexo</a>, which would be an ideal blogging platform. So naturally the first blog entry is how to setup Hexo and deploy in the server.</p>
-<h2 id="Getting-Started-With-Hexo"><a href="#Getting-Started-With-Hexo" class="headerlink" title="Getting Started With Hexo"></a>Getting Started With Hexo</h2><p>You would need nodejs and npm installed in your machine.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g</div><div class="line">hexo init jishnu.me</div><div class="line">cd blog</div><div class="line">npm install</div><div class="line">hexo server</div></pre></td></tr></table></figure>
-<p>Where <code>jishnu.me</code> is the folder the code will be generated. You can see the blog in port 4000 on your localhost.</p>
-<h2 id="Creating-First-Post"><a href="#Creating-First-Post" class="headerlink" title="Creating First Post"></a>Creating First Post</h2><p>All the posts go to the folder <code>blog/source/_posts/</code> and are of type <code>markdown (.md)</code></p>
-<p><code>hexo-cli</code> provides command line tool to create new posts</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new post &quot;Getting Started With Hexo&quot;</div></pre></td></tr></table></figure>
-<p>this will create a file called <code>Getting-Started-With-Hexo.md</code> under the <code>blog/source/_posts/</code> folder.</p>
-<p>Open the folder <code>jishnu.me</code> in your editor. You can start writing your blog.</p>
-<h2 id="Creating-github-page"><a href="#Creating-github-page" class="headerlink" title="Creating github page"></a>Creating github page</h2><p>You will need to create a public repository with <code>yourGithubUserid.github.io</code> repository for you to have github page. I am going to use this page as my blog.</p>
-<p><code>https://github.com/neolivz/neolivz.github.io</code> would be my github project name for my github page since my github userid is <code>neolivz</code>.</p>
-<p>PS:<br>Every time you make a build you need to commit from submodule and followed by committing in the parent module.</p>
-<h2 id="Adding-Github-Page-as-a-Submodule-to-your-project"><a href="#Adding-Github-Page-as-a-Submodule-to-your-project" class="headerlink" title="Adding Github Page as a Submodule to your project"></a>Adding Github Page as a Submodule to your project</h2><p>Add your github page as submodule to your project. This will help to generate the static pages and directly check into the<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule add git@github.com:neolivz/neolivz.github.io.git</div></pre></td></tr></table></figure></p>
-<p>###NOTE<br>If you are cloning a fresh checkout submodules won’t be already fetched. So you will have to update the submodule with<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git submodule init</div><div class="line">git submodule update</div></pre></td></tr></table></figure></p>
-<h2 id="Configuring-your-hexo-project"><a href="#Configuring-your-hexo-project" class="headerlink" title="Configuring your hexo project"></a>Configuring your hexo project</h2><p>In the file <code>_config.yml</code> makes the necessary edits, title subtitle, url etc.</p>
-<p>Apart from that change the default <code>public_dir</code> to your newly added submodule. So in my case it would be</p>
-<h2 id="Creating-Static-Site"><a href="#Creating-Static-Site" class="headerlink" title="Creating Static Site"></a>Creating Static Site</h2><p>Next step is creating a static site that we can host</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure>
-<p>This will generate a static folder which you can host anywhere. Since the generated files are in submodule of static page of your github it will be coming into your static page. Checkin everything to see if its working.</p>
+        <h1 id="History"><a href="#History" class="headerlink" title="History"></a>History</h1><p>About a 4 months back when I was coming back from my India trip, I wanted to make use of my time in flight by doing som RnD on React and Aurelia. I had two option either setup everthing before hand and work with it or find a way to do offline installation. After some googling (<code>local npm server</code>) I came across a package called <a href="https://github.com/rlidwka/sinopia" target="_blank" rel="external">sinopia</a>, which is a local npm server and npm install fetches result from that. It’s uber cool with one problem. It was broken, newer versions of node and npm were not supported. Futher asking help of god-all-knowing (read as google) I came across a port of <code>sinopia</code> called <a href="https://github.com/verdaccio/verdaccio" target="_blank" rel="external">verdaccio</a> which works fine and was using it till the point I stumbled across <a href="https://yarnpkg.com/" target="_blank" rel="external">yarn</a> from one of the old JS Weekly mails. Once you open your eyes, you will never go back.</p>
+<h1 id="Why-Yarn"><a href="#Why-Yarn" class="headerlink" title="Why Yarn?"></a>Why Yarn?</h1><p>Well easier question is why not yarn? The simple answer is No, there is no reason not use yarn other than being in the comfortablity of familiarity of npm.</p>
+<h2 id="Fast"><a href="#Fast" class="headerlink" title="Fast"></a>Fast</h2><p>Yarn is really fast, really really fast. Yarn caches your packages locally so next time it’s even faster. For the example let me use <a href="https://github.com/aurelia/skeleton-navigation/tree/master/skeleton-typescript-webpack" target="_blank" rel="external">Aurelia-TypeScript-Webpack-Skelton</a>. It took around ~50 seconds with npm (<code>version 4.1.2</code>) while yarn (<code>version 0.21.3</code>) completed in 28 seconds. If I have to delete the node_modules folder and reinstall npm will take the same time while yarn has cached local copy of the packages it finishes in 18.5 seconds, almost 3 times as fast as npm. So it is FAST!</p>
+<h2 id="Deterministic"><a href="#Deterministic" class="headerlink" title="Deterministic"></a>Deterministic</h2><p>The biggest dev problem with npm is that it’s not deterministic. If you install a package <code>npm install --save xyz@1.0.0</code> it will install package xyz of the version 1.0.0 which is expected result but in package.json dependency is created as <code>&quot;xyz&quot;:&quot;^1.0.0&quot;</code>, which means it would install any package as long as major version is not changes. So the next dev comes and runs <code>npm install</code> in his machine. He would get the latest <code>1.x</code> version, something like <code>xyz@1.20.0</code> rather than getting <code>1.0.0</code>. This will become a problem as you will face different issues for each developer rather one version for every developer. This can be solved by using <code>shrinkwrap</code> but again a manual process and which can create issues. Yes, apart from that <a href="https://docs.npmjs.com/how-npm-works/npm3-nondet" target="_blank" rel="external">this</a> shows non deterministic nature of npm.<br>Yarn solves this by doing two things, <code>yarn add</code> adds exact version <code>&quot;xyz&quot;:&quot;1.0.0</code> not with cap and creating <code>yarn.lock</code> file which is very similar to shrinkwrap along with checksum. Now once you checkin both package.json and yarn.lock file into the version control, anyone who checks out the code will get exact same version.</p>
+<h2 id="Secure"><a href="#Secure" class="headerlink" title="Secure*"></a>Secure*</h2><p>It’s secure becuase it uses sha1 checksum. From yarn website “Yarn uses checksums to verify the integrity of every installed package before its code is executed.”. I am no security expert but I guess integrity check provides one additional level of security for something like man in the middle attack.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>I am not big fan of the secure part, mainly I don’t think it gives a big leg-up over npm. Apart from that yarn hands down better than npm.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jishnu.me/2016/12/31/Getting-Started-With-Hexo/" data-id="cj0zby0hp00013zvl74eswdfn" class="article-share-link">Share</a>
+      <a data-url="http://blog.jishnu.me/2017/03/08/The-Beauty-Of-The-Yarn/" data-id="cj0zby0hv00043zvl68prcgfl" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sinopia/">sinopia</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/verdaccio/">verdaccio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yarn/">yarn</a></li></ul>
 
     </footer>
   </div>
@@ -119,15 +106,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/02/08/Base-Server-Configuration/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Base Server Configuration
-        
-      </div>
-    </a>
   
+    <a href="/2017/03/06/Typescript/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Typescript Webpack</div>
+    </a>
   
 </nav>
 
